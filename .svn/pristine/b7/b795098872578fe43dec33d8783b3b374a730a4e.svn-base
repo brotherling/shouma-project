@@ -1,0 +1,102 @@
+<template>
+<div style="height:72%;overflow-y:auto;">
+           <div class="personnel">
+   <yd-accordion>
+        <yd-accordion-item  :title="list.deptName" v-for="(list,index) in listTwoData" :key="list.deptId">
+            <div v-if="list.child!=null" style="padding: .24rem;">
+                <yd-accordion accordion>
+                <yd-accordion-item  :title="list1.deptName" v-for="(list1,index) in list.child" :key="list1.deptId">
+                        <div v-if="list1.child!=null" style="padding: .24rem;">
+                        <yd-accordion accordion>    
+                            <yd-accordion-item :title="list2.deptName" v-for="(list2,index) in list1.child" :key="list2.deptId">
+                                <div v-if="list2.child!=null" style="padding: .24rem;">
+                                <yd-accordion accordion> 
+                                    <yd-accordion-item :title="list3.deptName" v-for="(list3,index) in list2.child" :key="list3.deptId">
+                                          <div v-if="list3.child!=null" style="padding: .24rem;">
+                                            <yd-accordion accordion>
+                                            <yd-accordion-item :title="list2.deptName" v-for="(list4,index) in list3.child" :key="list4.deptId">
+                                               <div v-if="list4.child!=null" style="padding: .24rem;">
+                                                    <!-- <yd-accordion-item :title="list2.deptName" v-for="(list5,index) in list4.child" :key="list5.deptId">
+                                                        
+                                                    </yd-accordion-item> -->
+                                                </div>
+                                            <div v-else>
+                                                <yd-cell-group>
+                                                    <yd-cell-item v-for="listdata3 in list3.user" :key="listdata3.userId" @click.native="call(listdata3)">
+                                                        <span slot="left">{{listdata3.userName}}</span>
+                                                        <span slot="right">{{listdata3.userDeptName}}</span>
+                                                    </yd-cell-item>
+                                                </yd-cell-group>
+                                                </div>
+                                            </yd-accordion-item>
+                                    </yd-accordion>
+                                            </div>
+                                    </yd-accordion-item>
+                            </yd-accordion>
+                                </div>
+                                <div v-else>
+                                <yd-cell-group>
+                                    <yd-cell-item v-for="listdata2 in list2.user" :key="listdata2.userId" @click.native="call(listdata2)">
+                                        <span slot="left">{{listdata2.userName}}</span>
+                                        <span slot="right">{{listdata2.userDeptName}}</span>
+                                    </yd-cell-item>
+                                </yd-cell-group>
+                                </div>
+                            </yd-accordion-item>
+                        </yd-accordion>
+                        </div>
+                        <div v-else>
+                        <yd-cell-group>
+                            <yd-cell-item v-for="listdata1 in list1.user" :key="listdata1.userId" @click.native="call(listdata1)">
+                                <span slot="left">{{listdata1.userName}}</span>
+                                <span slot="right">{{listdata1.userDeptName}}</span>
+                            </yd-cell-item>
+                         </yd-cell-group>
+                        </div>
+                </yd-accordion-item>
+                </yd-accordion>
+            </div>
+            <div v-else>
+            <yd-cell-group>
+                <yd-cell-item v-for="listdata in list.user" :key="listdata.userId" @click.native="call(listdata)">
+                    <span slot="left">{{listdata.userName}}</span>
+                    <span slot="right">{{listdata.userDeptName}}</span>
+                </yd-cell-item>
+            </yd-cell-group>
+            </div>
+        </yd-accordion-item>
+    </yd-accordion>
+           </div> 
+</div>
+</template>
+<script>
+    export default{
+        name:"personnel",
+        data(){
+            return{
+                listTwoData:"",
+                showContent001:false
+            }
+        },
+        methods: {
+            call(e){
+                 this.$parent.data=e;
+                 $(".restoring").trigger("click");
+            }
+        },
+        created(){
+            this.$http.get("/API/baseservice/GetChildDept",{params:{levelCode:this.$route.query.id}}, { emulateJSON: true })
+                .then(res => {
+                    this.listTwoData=res.data;
+                }
+                )
+            this.$parent.nextData=this.$route.query.name;
+            this.$parent.delshow=false;
+        }
+    }
+</script>
+<style>
+.personnel span{
+    font-size:16px; /*no*/
+}
+</style>

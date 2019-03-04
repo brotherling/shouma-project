@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=0"><title>资产管理系统</title><style>*{
+    		margin: 0;
+    		padding: 0;
+    	}
+      html,body,#app{
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
+      }
+      .div1{
+         height:100%;
+         overflow: hidden;
+        }
+        /* input{
+          font-size: 16px !important;
+        } */
+        .SizeColor{
+    color:#EA5514;
+        }</style><link href=./static/css/app.9ae660ca674f46cc7987cd67922a8a0c.css rel=stylesheet></head><body><div id=app></div><script src=./static/public/config.js></script><script src=./static/public/vuex.js></script><script src=./static/public/zepto.js></script><script src=http://res.wx.qq.com/open/js/jweixin-1.2.0.js></script><script src=./static/public/imgcompression.js></script><script type=text/javascript src=./static/js/manifest.62de4d0ec6aff9f7bbcf.js></script><script type=text/javascript src=./static/js/vendor.50fe8451de6aeb3fa553.js></script><script type=text/javascript src=./static/js/app.6d5699845a9d3fbe9c50.js></script></body></html>

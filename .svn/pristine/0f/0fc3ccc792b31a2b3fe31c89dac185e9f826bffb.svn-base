@@ -1,0 +1,183 @@
+<template>
+
+<section class="cutoff">
+  <div class="cutoff_search" >
+      <div class="sealeft"><span>{{titledata}}</span><img src="../assets/xiala.png" alt="" @click="showserial()"></div>
+      <div class="longstring"></div>
+      <div class="searight">
+            <el-input placeholder=""  class="input-with-select" v-model="boxvalue">
+                    <el-button @click="clisearch()" slot="append" icon="el-icon-search" ></el-button>
+                </el-input>
+            <img @click="batchFlicking " class="RImg" src='../assets/shaoma.png'>
+      </div>
+  </div>
+  <div class="barSeriation">
+      <ul>
+        <li @click="clicksea($event,ati.name,index)" v-for="(ati,index) in serial" :key="ati.name">{{ati.name}}<span class="seriationImg"></span></li>
+      </ul>
+  </div>
+        <div id="zhezhao"></div>
+</section>
+</template>
+<script>
+    export default{
+        name:"searchbar",
+        props:{
+            serial:"",
+            clicksearch:Function,
+            data:Object,
+            titledata:"",
+        },
+        data(){
+            return{
+                boxvalue:"",
+            }
+        },
+        methods:{
+            showserial(){
+                $(".barSeriation").toggle();
+                $("#zhezhao").toggle();
+            },
+            clicksea(e,name,index){
+                for(let i=0,data=$(".seriationImg").length;i<data;i++){
+                    $(".seriationImg").eq(i).hide();
+                }
+                $(".seriationImg").eq(index).show();
+                if(name=="全部"){
+                    this.data.filter="";
+                }else{
+                this.data.filter=name;
+                }
+                this.clisearch();
+                this.showserial();
+            },
+            clisearch(e){
+                console.log(e,this.boxvalue);
+                if(e==undefined){
+                   this.data.param=this.boxvalue
+                }else{
+                this.data.param=e;
+                this.boxvalue=e
+                }
+                 this.clicksearch();
+            },
+            batchFlicking(){
+                this.saoma(this.clisearch);
+            }
+        },
+        mounted() {
+            $(".seriationImg").eq(0).show();
+        },
+    }
+</script>
+<style>
+.cutoff{
+    width:100%;
+    border-bottom:1px solid #ccc;
+}
+.cutoff .cutoff_search{
+    width:95%;
+    height:70px;
+    display:flex;
+  align-items: center;
+}
+.sealeft {
+  width: 26%;
+  height:100%;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-left:3%
+}
+.sealeft img{
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-left:5px;
+}
+.sealeft span{
+    margin-left:15px;
+}
+.RImg {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+     right: -35px;
+}
+.searight {
+  width: 46%;
+  height: 100%;
+  font-size: 20px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.searight .el-icon-search {
+  color: #039ee7;
+}
+.longstring{
+    width:1px;
+    height: 40px;
+    background:#000000;
+    opacity:0.3;
+    margin:0 7%;
+}
+.searight .el-button{
+    padding:0;
+
+}
+.searight .el-icon-search{
+margin-left:6px;
+}
+.searight .el-input-group__append{
+    background:white;
+}
+.barSeriation{
+    width:100%;
+    display:none;
+    background:white;
+    z-index: 1000;
+    position: fixed;
+}
+.barSeriation ul{
+    width:100%;
+}
+.barSeriation ul li{
+    width:80%;
+    list-style-type: none;
+    height: 55px;
+    line-height: 55px;
+    font-size:18px;
+    margin-left:10%;
+    border-bottom:1px dashed #E6E6E6;
+    padding:5px;
+    position: relative;
+}
+.barSeriation ul li:last-child{
+    border:none;
+}
+.seriationImg{
+    width:25px;
+    height: 25px;
+    background:url("../assets/xuan.png") no-repeat;
+    background-size:cover;
+    position: absolute;
+    right: 50px;
+    top:10px;
+    display:none;
+}
+#zhezhao{
+    display: none;
+    position: fixed;
+    left: 0%;
+    width: 100%;
+    height: 65%;
+        background-color: black;
+    z-index:999;
+    bottom:10%;
+    -moz-opacity: 0.8;
+    opacity:.50;
+}
+</style>
+
